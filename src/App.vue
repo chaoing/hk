@@ -2,27 +2,11 @@
   <div style="width:500px;margin-top: 50px;">
     <img style="width: 100%" src="./assets/poster.png">
     <div style="display: flex;align-items:center;justify-content: space-between;margin-top: 20px;">
-      <el-select v-model="name1" placeholder="Select One">
-        <el-option
-            v-for="item in nameOptions"
-            :key="item"
-            :label="item"
-            :value="item"
-            :disabled="item===name2"
-        />
-      </el-select>
+      <el-input v-model="name1" placeholder="Input One"></el-input>
       <div @click="start" style="margin:0 20px;cursor: pointer;">
         <img :class="animateClass" style="width: 100%" src="./assets/qian.png">
       </div>
-      <el-select v-model="name2" placeholder="Select Two">
-        <el-option
-            v-for="item in nameOptions"
-            :key="item"
-            :label="item"
-            :value="item"
-            :disabled="item===name1"
-        />
-      </el-select>
+      <el-input v-model="name2" placeholder="Input Two"></el-input>
     </div>
     <div class="img-row">
       <el-button type="warning" plain :disabled="!this.name1||!this.name2" @click="start">开始测算</el-button>
@@ -33,34 +17,12 @@
         top="10px"
         width="800px"
         :before-close="handleClose">
-      <div style="margin-bottom: 30px;">
-        <div class="text">结果{{ resultData.partnership }}</div>
-        <div  class="img-row" style="display: flex;" :style="{justifyContent:resultData.shipImage?'center':'space-between'}">
-          <img class="header-img" :src="tranSrc(resultData.aimage)">
-          <img class="header-img" :src="tranSrc(resultData.bimage)">
-        </div>
-        <div class="text">关系写照</div>
-        <img class="shop-img" v-if="resultData.shipImage" :src="tranSrc(resultData.shipImage)" alt="">
-      </div>
-
-      <div class="row" v-if="resultData.paAdditionalShip">
-        <div class="text">{{ resultData.paAdditionalShip.partnership }}：{{ resultData.paAdditionalShip.aname }} && {{ resultData.paAdditionalShip.bname }}</div>
-        <div class="img-row">
-          <img class="header-img" :src="tranSrc(resultData.paAdditionalShip.aimage)">
-          <img class="header-img" :src="tranSrc(resultData.paAdditionalShip.bimage)">
-        </div>
-        <div class="text">关系写照</div>
-        <img class="shop-img" v-if="resultData.paAdditionalShip.shipImage" :src="tranSrc(resultData.paAdditionalShip.shipImage)" alt="">
-      </div>
-
-      <div class="row" v-if="resultData.pbAdditionalShip">
-        <div class="text">{{ resultData.pbAdditionalShip.partnership }}：{{ resultData.pbAdditionalShip.aname }} && {{ resultData.pbAdditionalShip.bname }}</div>
-        <div  class="img-row">
-          <img class="header-img" :src="tranSrc(resultData.pbAdditionalShip.aimage)">
-          <img class="header-img" :src="tranSrc(resultData.pbAdditionalShip.bimage)">
-        </div>
-        <div class="text">关系写照</div>
-        <img class="shop-img" v-if="resultData.pbAdditionalShip.shipImage" :src="tranSrc(resultData.pbAdditionalShip.shipImage)" alt="">
+      <PatchItem v-if="!showName1Add&&!showName2Add" style="margin-bottom: 30px;" :data="resultData"></PatchItem>
+      <PatchItem v-if="resultData.paAdditionalShip&&showName1Add" :data="resultData.paAdditionalShip"/>
+      <PatchItem v-if="resultData.pbAdditionalShip&&showName2Add" :data="resultData.pbAdditionalShip"/>
+      <div class="add-box">
+        <div v-if="resultData.paAdditionalShip" @click="showName1Add=true;showName2Add=false" class="add-item">{{ name1 }}的最佳</div>
+        <div v-if="resultData.pbAdditionalShip" @click="showName2Add=true;showName1Add=false" class="add-item">{{ name2 }}的最佳</div>
       </div>
     </el-dialog>
   </div>
@@ -68,14 +30,18 @@
 
 <script>
 /* eslint-disable */
+import PatchItem from '@/components/PatchItem'
+
 export default {
   name: 'App',
-  components: {},
+  components: {PatchItem},
   data () {
     return {
       dialogVisible: false,
       name1: '',
       name2: '',
+      showName1Add: false,
+      showName2Add: false,
       animateClass: '',
       nameOptions: [
         '艾广华',
@@ -133,8 +99,12 @@ export default {
         setTimeout(() => {
           fetch(`/hk/ships/ce?pa=${this.name1}&pb=${this.name2}`).then(e => {
             e.json().then(re => {
+              if(!re.data){
+                this.animateClass = ''
+                return alert(re.message)
+              }
               this.animateClass = 'ani-scale'
-              this.resultData = re.data
+              this.resultData = re.data || {}
               setTimeout(() => {
                 this.dialogVisible = true
               }, 1000)
@@ -155,6 +125,7 @@ export default {
     handleClose () {
       this.animateClass = ''
       this.dialogVisible = false
+      this.showName1Add = this.showName2Add = false
     },
     tranSrc (path) {
       return '/hk/' + path
@@ -165,10 +136,32 @@ export default {
 </script>
 
 <style>
-body{
+.add-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-item {
+  width: 180px;
+  height: 48px;
+  line-height: 48px;
+  font-size: 24px;
+  color: red;
+  border: 2px dashed red;
+  cursor: pointer;
+}
+
+.add-item:hover {
+  background: red;
+  color: white;
+}
+
+body {
   background: url("~@/assets/bg.png");
   background-size: cover;
 }
+
 #app, body, html {
   width: 100%;
   height: 100%;
@@ -194,11 +187,13 @@ body{
 .ani-scale {
   animation: AniScale .6s linear both;
 }
-.img-row{
+
+.img-row {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 @keyframes AniStart {
   0% {
     transform: rotate(0);
@@ -244,7 +239,8 @@ body{
 .shop-img {
   width: 300px;
 }
-.el-dialog{
+
+.el-dialog {
   background: #e5cda5;
   padding: 20px 50px;
 }
