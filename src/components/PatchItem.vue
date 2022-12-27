@@ -8,11 +8,16 @@
       <template v-if="data.partnership">
         <!-- <div class="text" style="margin-top: 10px;">鉴定结果</div> -->
         <div class="text cl-result" :class="getPartnerShipClass(data.partnership)">
-          {{ text || data.partnership }}
+          <div>{{ text || data.partnership }}</div>
           <img
             v-if="data.partnership === '机缘不足'"
             class="cl-tears"
             src="@/assets/grin-squint-tears.png"
+          />
+          <img
+            v-else-if="data.partnership === '缘分满满'"
+            class="cl-love"
+            src="@/assets/love.png"
           />
         </div>
       </template>

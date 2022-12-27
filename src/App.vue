@@ -2,15 +2,15 @@
   <div style="width:500px;margin-top: 50px;">
     <img style="width: 100%" src="./assets/poster.png">
     <div style="display: flex;align-items:center;justify-content: space-between;margin-top: 20px;">
-      <el-input v-model="name1" placeholder="Input One"></el-input>
+      <el-input class="cl-input" size="large" v-model="name1" placeholder="Input One"></el-input>
       <div @click="start" style="margin:0 20px;cursor: pointer;">
         <img :class="animateClass" style="width: 100%" src="./assets/qian.png">
       </div>
-      <el-input v-model="name2" placeholder="Input Two"></el-input>
+      <el-input class="cl-input" size="large" v-model="name2" placeholder="Input Two"></el-input>
     </div>
-    <div class="img-row">
-      <el-button type="warning" plain :disabled="!this.name1||!this.name2" @click="start">开始测算</el-button>
-      <el-button type="danger" plain @click="radom">随机测算</el-button>
+    <div class="img-row cl-btns">
+      <el-button size="large" type="info" plain :disabled="!this.name1||!this.name2" @click="start">开始测算</el-button>
+      <el-button size="large" type="danger" plain @click="radom">随机测算</el-button>
     </div>
     <el-dialog
         v-model="dialogVisible"
@@ -320,5 +320,21 @@ body {
 .cl-mci-content {
   text-align: left;
   line-height: 3;
+}
+
+.cl-input {
+  height: 40px;
+  font-size: 16px;
+}
+.cl-input .el-input__inner {
+  border: none !important;
+  outline: 0 !important;
+}
+.cl-input .el-input__inner  {
+  outline: 0 !important;
+}
+
+.cl-btns {
+  margin-top: 10px;
 }
 </style>
