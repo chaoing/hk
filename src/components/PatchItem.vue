@@ -11,15 +11,16 @@
       </div>
     </div>
     <template v-if="data.partnership">
-      <div class="text" style="margin-top: 10px;">鉴定结果</div>
+      <div class="text">鉴定结果</div>
       <div class="text">{{ text || data.partnership }}</div>
     </template>
+    <div v-if="data.recommendedWeddingDate" style="margin:10px 0px;">原地结婚日：{{data.recommendedWeddingDate}}</div>
     <template v-if="data.shipImage">
       <div class="text" style="margin-top: 40px;">关系写照</div>
       <img class="shop-img" :src="tranSrc(data.shipImage)">
     </template>
     <div class="mci-area" v-if="data.mci">
-      <div style="margin-bottom: 5px">{{data.mci.name }} {{data.mci.type }}</div>
+      <div style="margin-bottom: 5px">{{data.mci.name }} {{data.mci.type }}签</div>
       <img :src="data.mci.image">
       <div v-for="(item,index) in data.mci.desc.split('\n')" :key="index">{{item}}</div>
     </div>
