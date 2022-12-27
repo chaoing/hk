@@ -130,58 +130,6 @@ export default {
     tranSrc (path) {
       return '/hk/' + path
     }
-  },
-  mounted() {
-    this.dialogVisible = true
-    this.resultData = {
-  "aname": "钟灵",
-  "aimage": "image/persons/colleague/zhongling.png",
-  "bname": "杨东升",
-  "bimage": "image/persons/colleague/yangdongsheng.png",
-  "partnership": "机缘不足",
-  "shipImage": "",
-  "mci": {
-    "name": "月老灵签姻缘签第二十二签",
-    "type": "中",
-    "desc": "缘份指数：79\n幸福指数：49\n暧昧指数：59\n缠绵指数：99\n约会成功指数：39\n告白成功指数：59\n复合成功指数：59",
-    "image": "https://img.51chouqian.com/image/yuelaoyinyuanqian/22.jpg"
-  },
-  "recommendedWeddingDate": null,
-  "paAdditionalShip": {
-    "aname": "钟灵",
-    "aimage": "image/persons/colleague/zhongling.png",
-    "bname": "胡军",
-    "bimage": "image/stars/male/hujun.png",
-    "partnership": "缘分满满",
-    "shipImage": "",
-    "mci": {
-      "name": "月老灵签姻缘签第十二签",
-      "type": "上吉",
-      "desc": "缘份指数：99\n幸福指数：99\n暧昧指数：99\n缠绵指数：99\n约会成功指数：79\n告白成功指数：89\n复合成功指数：99",
-      "image": "https://img.51chouqian.com/image/yuelaoyinyuanqian/12.jpg"
-    },
-    "recommendedWeddingDate": "2023年1月21日",
-    "paAdditionalShip": null,
-    "pbAdditionalShip": null
-  },
-  "pbAdditionalShip": {
-    "aname": "杨东升",
-    "aimage": "image/persons/colleague/yangdongsheng.png",
-    "bname": "迪丽热巴",
-    "bimage": "image/stars/female/dilireba.png",
-    "partnership": "缘分满满",
-    "shipImage": "",
-    "mci": {
-      "name": "月老灵签姻缘签第三十六签",
-      "type": "上上",
-      "desc": "缘份指数：99\n幸福指数：99\n暧昧指数：99\n缠绵指数：99\n约会成功指数：99\n告白成功指数：99\n复合成功指数：99",
-      "image": "https://img.51chouqian.com/image/yuelaoyinyuanqian/36.jpg"
-    },
-    "recommendedWeddingDate": "2023年2月18日",
-    "paAdditionalShip": null,
-    "pbAdditionalShip": null
-  }
-}
   }
 }
 /* eslint-disable */
