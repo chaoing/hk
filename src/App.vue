@@ -1,12 +1,12 @@
 <template>
-  <div style="width:500px;margin-top: 50px;">
+  <div style="width:700px;margin-top: 50px;">
     <img style="width: 100%" src="./assets/poster.png">
     <div style="display: flex;align-items:center;justify-content: space-between;margin-top: 20px;">
-      <el-input v-model="name1" placeholder="Input One"></el-input>
+      <el-input v-model="name1" placeholder="Input People 1 Name"></el-input>
       <div @click="start" style="margin:0 20px;cursor: pointer;">
         <img :class="animateClass" style="width: 100%" src="./assets/qian.png">
       </div>
-      <el-input v-model="name2" placeholder="Input Two"></el-input>
+      <el-input v-model="name2" placeholder="Input People 2 Name"></el-input>
     </div>
     <div class="img-row">
       <el-button type="warning" plain :disabled="!this.name1||!this.name2" @click="start">开始测算</el-button>
@@ -147,13 +147,15 @@ export default {
   height: 48px;
   line-height: 48px;
   font-size: 24px;
-  color: red;
-  border: 2px dashed red;
+  color: #cf4141;
+  border: 2px dashed #cf4141;
   cursor: pointer;
+  border-radius: 8px;
+  transition: all .4s;
 }
 
 .add-item:hover {
-  background: red;
+  background: #cf4141;
   color: white;
 }
 
@@ -242,6 +244,81 @@ body {
 
 .el-dialog {
   background: #e5cda5;
-  padding: 20px 50px;
+  padding: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cl-result {
+  font-family: LUO;
+  font-size: 32px;
+  letter-spacing: 4px;
+  color: #522ec1;
+  margin: 0 20px;
+  /* background: url('~@/assets/ribbon.webp') no-repeat center/cover; */
+}
+
+.cl-avator {
+  border-radius: 50%;
+  border: 1px solid #9d8282;
+}
+
+.cl-card {
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgb(182, 137, 137);
+}
+
+.cl-love {
+  width: 40px;
+  height: 40px;
+  margin: 0 20px;
+  background: url("~@/assets/love.png") no-repeat center/cover;
+}
+
+.cl-gray {
+  color: #584e4e;
+}
+
+.cl-red {
+  color: #e14065;
+}
+
+.cl-subtitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.cl-tears {
+  width: 28px;
+  height: 28px;
+}
+
+.cl-title {
+  color: #222;
+}
+
+.cl-mt10 {
+  margin-top: 10px;
+}
+
+.cl-mci-type {
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.cl-flex {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cl-mci-content {
+  text-align: left;
+  line-height: 3;
 }
 </style>
